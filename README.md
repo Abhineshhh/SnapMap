@@ -78,6 +78,7 @@ SnapMap/                         → Project root
 │   │   package-lock.json         
 │   │   package.json              
 │   │   server.js                 → Server entry point
+│   │   v1.js                     → /api/v1 all routes are here
 │   │   
 │   ├── config/                   
 │   ├── controllers/              → Request handlers
