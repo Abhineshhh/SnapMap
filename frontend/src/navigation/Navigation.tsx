@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useAuth } from "@clerk/clerk-expo";
+import type { RootParamList } from "../types";
 
 // Import screens
 import SplashScreen from "../screens/SplashScreen";
@@ -19,12 +20,13 @@ import ProfileScreen from "../screens/ProfileScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import ErrorScreen from "../screens/ErrorScreen";
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootParamList>();
 
 // Main navigator that shows SplashScreen first
 const MainNavigator = () => {
   return (
-    <Stack.Navigator 
+    <Stack.Navigator
+      id="MainStack"
       screenOptions={{ headerShown: false }}
       initialRouteName="SplashScreen"
     >
@@ -34,8 +36,14 @@ const MainNavigator = () => {
       <Stack.Screen name="HomeScreen" component={HomeScreen} />
       <Stack.Screen name="CameraScreen" component={CameraScreen} />
       <Stack.Screen name="MapScreen" component={MapScreen} />
-      <Stack.Screen name="UploadConfirmationScreen" component={UploadConfirmationScreen} />
-      <Stack.Screen name="BubbleDetailsScreen" component={BubbleDetailsScreen} />
+      <Stack.Screen
+        name="UploadConfirmationScreen"
+        component={UploadConfirmationScreen}
+      />
+      <Stack.Screen
+        name="BubbleDetailsScreen"
+        component={BubbleDetailsScreen}
+      />
       <Stack.Screen name="EventGalleryScreen" component={EventGalleryScreen} />
       <Stack.Screen name="MyUploadsScreen" component={MyUploadsScreen} />
       <Stack.Screen name="ProfileScreen" component={ProfileScreen} />

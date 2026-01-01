@@ -1,7 +1,11 @@
+import React from "react";
+import { Alert, Button, Image, StyleSheet, View } from "react-native";
+import type { ScreenProps } from "../types";
 
-import { Alert, Button, Image, StyleSheet,View } from "react-native";
-
-const UploadConfirmationScreen = ({ navigation, route }) => {
+const UploadConfirmationScreen = ({
+  navigation,
+  route,
+}: ScreenProps<"UploadConfirmationScreen">) => {
   const { photo, location } = route.params || {};
 
   const handleUpload = () => {
@@ -27,7 +31,7 @@ const UploadConfirmationScreen = ({ navigation, route }) => {
     return (
       Alert.alert("No photo found", " retake or try agin."),
       navigation.goBack(),
-      <View />
+      (<View />)
     );
   }
 

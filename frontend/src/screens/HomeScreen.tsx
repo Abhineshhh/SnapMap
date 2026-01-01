@@ -2,39 +2,45 @@ import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
+import type { ScreenProps } from "../types";
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = ({ navigation }: ScreenProps<"HomeScreen">) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.logoContainer}>
-        <Image 
-          source={require("../assets/images/icon.png")} 
+        <Image
+          source={require("../assets/images/icon.png")}
           style={styles.logo}
           resizeMode="contain"
         />
       </View>
-      
+
       <View style={styles.mapContainer}>
-        <Image 
-          source={require("../assets/images/map.png")} 
+        <Image
+          source={require("../assets/images/map.png")}
           style={styles.mapImage}
           resizeMode="cover"
         />
       </View>
-      
+
       <View style={styles.buttonContainer}>
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.button}
           onPress={() => navigation.navigate("MapScreen")}
         >
           <Text style={styles.buttonText}>EXPLORE MAP</Text>
         </TouchableOpacity>
-        
-        <TouchableOpacity 
+
+        <TouchableOpacity
           style={styles.button}
           onPress={() => navigation.navigate("CameraScreen")}
         >
-          <Ionicons name="camera-outline" size={24} color="#FFFFFF" style={styles.cameraIcon} />
+          <Ionicons
+            name="camera-outline"
+            size={24}
+            color="#FFFFFF"
+            style={styles.cameraIcon}
+          />
           <Text style={styles.buttonText}>TAKE PHOTO</Text>
         </TouchableOpacity>
       </View>
@@ -47,10 +53,10 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFF5F5',
+    backgroundColor: "#FFF5F5",
   },
   logoContainer: {
-    alignItems: 'center',
+    alignItems: "center",
     paddingTop: 10,
     paddingBottom: 10,
   },
@@ -60,14 +66,14 @@ const styles = StyleSheet.create({
   },
   mapContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     margin: 20,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   mapImage: {
-    width: '125%',
-    height: '125%',
+    width: "125%",
+    height: "125%",
   },
   buttonContainer: {
     padding: 20,
@@ -75,14 +81,14 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   button: {
-    backgroundColor: '#FF4444',
+    backgroundColor: "#FF4444",
     borderRadius: 16,
     paddingVertical: 18,
     paddingHorizontal: 24,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    shadowColor: '#000',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
@@ -92,11 +98,11 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   buttonText: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     letterSpacing: 1,
-    textTransform: 'uppercase',
+    textTransform: "uppercase",
   },
   cameraIcon: {
     marginRight: 12,

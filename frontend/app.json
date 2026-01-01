@@ -23,16 +23,12 @@
         "backgroundImage": "./src/assets/images/android-icon-background.png",
         "monochromeImage": "./src/assets/images/android-icon-monochrome.png"
       },
-      "permissions": [
-        "ACCESS_COARSE_LOCATION",
-        "ACCESS_FINE_LOCATION"
-      ],
+      "permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION"],
       "edgeToEdgeEnabled": true,
       "package": "com.snapmap.app"
     },
     "web": {
-      "output": "single",
-      "favicon": "./src/assets/images/favicon.png"
+      "output": "single"
     },
     "plugins": [
       [

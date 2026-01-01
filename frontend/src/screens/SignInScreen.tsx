@@ -1,15 +1,24 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
-import { useSignUp, useOAuth } from "@clerk/clerk-expo";
+import { useSignIn, useOAuth, useAuth } from "@clerk/clerk-expo";
 import * as WebBrowser from "expo-web-browser";
+import type { ScreenProps } from "../types";
 
 WebBrowser.maybeCompleteAuthSession();
 
-const SignUpScreen = ({ navigation }) => {
-  const { isLoaded } = useSignUp();
+const SignInScreen = ({ navigation }: ScreenProps<"SignInScreen">) => {
+  const { isLoaded } = useSignIn();
+  const { isSignedIn } = useAuth();
   const { startOAuthFlow } = useOAuth({ strategy: "oauth_google" });
 
-  const onSignUpWithGoogle = useCallback(async () => {
+  // Navigate to HomeScreen when signed in
+  useEffect(() => {
+    if (isSignedIn) {
+      navigation.replace("HomeScreen");
+    }
+  }, [isSignedIn, navigation]);
+
+  const onSignInWithGoogle = useCallback(async () => {
     if (!isLoaded) return;
 
     try {
@@ -17,27 +26,27 @@ const SignUpScreen = ({ navigation }) => {
 
       if (createdSessionId) {
         await setActive({ session: createdSessionId });
-        // Navigation handled by useAuth() in Navigation.js
+        // Navigation will happen automatically via useEffect above
       }
     } catch (err) {
-      console.error("Sign up error:", JSON.stringify(err, null, 2));
+      console.error("Sign in error:", JSON.stringify(err, null, 2));
     }
   }, [isLoaded, startOAuthFlow]);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Create Account</Text>
-      <Text style={styles.subtitle}>Join SnapMap today</Text>
+      <Text style={styles.title}>Welcome to SnapMap</Text>
+      <Text style={styles.subtitle}>Sign in to continue</Text>
 
-      <TouchableOpacity style={styles.button} onPress={onSignUpWithGoogle}>
-        <Text style={styles.buttonText}>Sign Up with Google</Text>
+      <TouchableOpacity style={styles.button} onPress={onSignInWithGoogle}>
+        <Text style={styles.buttonText}>Sign In with Google</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.linkButton}
-        onPress={() => navigation.navigate("SignInScreen")}
+        onPress={() => navigation.navigate("SignUpScreen")}
       >
-        <Text style={styles.linkText}>Already have an account? Sign In</Text>
+        <Text style={styles.linkText}>Don't have an account? Sign Up</Text>
       </TouchableOpacity>
     </View>
   );
@@ -85,4 +94,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SignUpScreen;
+export default SignInScreen;

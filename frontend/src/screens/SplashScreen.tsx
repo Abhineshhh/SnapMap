@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { useAuth } from "@clerk/clerk-expo";
+import type { ScreenProps } from "../types";
 
-const SplashScreen = ({ navigation }) => {
+const SplashScreen = ({ navigation }: ScreenProps<"SplashScreen">) => {
   const { isSignedIn, isLoaded } = useAuth();
 
   useEffect(() => {
@@ -21,8 +22,8 @@ const SplashScreen = ({ navigation }) => {
 
   return (
     <View style={styles.root}>
-      <Image 
-        source={require("../assets/images/icon.png")} 
+      <Image
+        source={require("../assets/images/icon.png")}
         style={styles.icon}
         resizeMode="contain"
       />
@@ -33,12 +34,11 @@ const SplashScreen = ({ navigation }) => {
 
 export default SplashScreen;
 
-
 const styles = StyleSheet.create({
   root: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#fff",
     flex: 1,
   },
   icon: {
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 28,
     fontWeight: "bold",
-    color: '#000',
+    color: "#000",
     letterSpacing: 2,
   },
 });

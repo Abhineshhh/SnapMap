@@ -1,5 +1,6 @@
 import { CameraView, useCameraPermissions } from "expo-camera";
 import * as Location from "expo-location";
+import type { CameraType, FlashMode } from "expo-camera";
 import React, { useEffect, useRef, useState } from "react";
 import {
   Alert,
@@ -9,21 +10,14 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import type { ScreenProps } from "../types";
 
-const CAMERA_FACING = {
-  front: "front",
-  back: "back",
-};
-
-const FLASH_MODE = {
-  on: "on",
-  off: "off",
-};
-
-export default function CameraScreen({ navigation }) {
+export default function CameraScreen({
+  navigation,
+}: ScreenProps<"CameraScreen">) {
   const cameraRef = useRef(null);
-  const [facing, setFacing] = useState(CAMERA_FACING.back);
-  const [flash, setFlash] = useState(FLASH_MODE.off);
+  const [facing, setFacing] = useState<CameraType>("back");
+  const [flash, setFlash] = useState<FlashMode>("off");
   const [permission, requestPermission] = useCameraPermissions();
   const [locationPermission, setLocationPermission] = useState(null);
   const [isCameraOk, setIsCameraOk] = useState(false);
@@ -59,15 +53,11 @@ export default function CameraScreen({ navigation }) {
   }
 
   const toggleCameraFacing = () => {
-    setFacing((current) =>
-      current === CAMERA_FACING.back ? CAMERA_FACING.front : CAMERA_FACING.back
-    );
+    setFacing((current) => (current === "back" ? "front" : "back"));
   };
 
   const toggleFlash = () => {
-    setFlash((current) =>
-      current === FLASH_MODE.off ? FLASH_MODE.on : FLASH_MODE.off
-    );
+    setFlash((current) => (current === "off" ? "on" : "off"));
   };
 
   const ensureLocationPermission = async () => {
@@ -104,7 +94,10 @@ export default function CameraScreen({ navigation }) {
     if (permissionStatus === "granted") {
       const servicesEnabled = await Location.hasServicesEnabledAsync();
       if (!servicesEnabled) {
-        Alert.alert("Location off", "Enable location services to add location data.");
+        Alert.alert(
+          "Location off",
+          "Enable location services to add location data."
+        );
       } else {
         try {
           location = await Location.getCurrentPositionAsync({});
@@ -133,7 +126,7 @@ export default function CameraScreen({ navigation }) {
         <View style={styles.controlsRow}>
           <TouchableOpacity style={styles.controlButton} onPress={toggleFlash}>
             <Text style={styles.controlText}>
-              Flash {flash === FLASH_MODE.on ? "On" : "Off"}
+              Flash {flash === "on" ? "On" : "Off"}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -143,7 +136,10 @@ export default function CameraScreen({ navigation }) {
             <Text style={styles.controlText}>Flip</Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity style={styles.shutterOuter} onPress={handletheCapture}>
+        <TouchableOpacity
+          style={styles.shutterOuter}
+          onPress={handletheCapture}
+        >
           <View style={styles.shutterInnerButton} />
         </TouchableOpacity>
       </View>
@@ -211,11 +207,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffffffff",
 
     fontSize: 24,
-    fontWeight: 'bold',
-    color: 'white',
-
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: 'white',
+    fontWeight: "bold",
+    color: "white",
   },
 });
